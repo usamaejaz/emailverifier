@@ -7,7 +7,7 @@ The offline functions use bundled data and make no network requests. They can id
 ## Install
 
 ```bash
-npm install emailverifier
+npm install @usamaejaz/emailverifier
 ```
 
 Node.js 20 or newer is required. The package has no runtime dependencies and sends no telemetry.
@@ -15,7 +15,7 @@ Node.js 20 or newer is required. The package has no runtime dependencies and sen
 ## Free offline analysis
 
 ```ts
-import { analyzeEmail } from 'emailverifier/offline'
+import { analyzeEmail } from '@usamaejaz/emailverifier/offline'
 
 const result = analyzeEmail('Support+Trial@Gmail.com')
 
@@ -35,7 +35,7 @@ import {
   isDisposableDomain,
   isFreeEmailProvider,
   isRoleAddress
-} from 'emailverifier/offline'
+} from '@usamaejaz/emailverifier/offline'
 ```
 
 ## Hosted verification
@@ -43,7 +43,7 @@ import {
 Create a project at [emailverifier.dev](https://emailverifier.dev), then use its API key:
 
 ```ts
-import { EmailVerifier } from 'emailverifier'
+import { EmailVerifier } from '@usamaejaz/emailverifier'
 
 const client = new EmailVerifier({
   apiKey: process.env.EMAILVERIFIER_API_KEY!
