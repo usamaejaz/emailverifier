@@ -1,0 +1,63 @@
+{
+  "name": "emailverifier",
+  "version": "0.1.0",
+  "description": "Offline email analysis, the emailverifier.dev API client, and a CLI.",
+  "keywords": [
+    "email",
+    "email-verification",
+    "disposable-email",
+    "email-validation",
+    "cli"
+  ],
+  "homepage": "https://emailverifier.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usamaejaz/emailverifier.git"
+  },
+  "bugs": {
+    "url": "https://github.com/usamaejaz/emailverifier/issues"
+  },
+  "license": "MIT",
+  "author": "Usama Ejaz",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./offline": {
+      "types": "./dist/types/offline.d.ts",
+      "import": "./dist/esm/offline.js",
+      "require": "./dist/cjs/offline.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "emailverifier": "./dist/esm/cli.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "npm run typecheck && npm test && npm pack --dry-run --cache ./.npm-cache",
+    "test": "npm run build && node --test",
+    "typecheck": "node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit",
+    "update:data": "node scripts/update-disposable-domains.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.10",
+    "typescript": "^5.7.3"
+  }
+}

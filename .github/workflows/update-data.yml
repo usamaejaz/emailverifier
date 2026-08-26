@@ -1,0 +1,44 @@
+name: Update disposable domains
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: update-disposable-domains
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run update:data
+      - id: changed
+        run: git diff --quiet || echo "changed=true" >> "$GITHUB_OUTPUT"
+      - if: steps.changed.outputs.changed == 'true'
+        run: npm version patch --no-git-tag-version
+      - if: steps.changed.outputs.changed == 'true'
+        run: npm run check
+      - if: steps.changed.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json src/data/disposable-domains.generated.ts
+          git commit -m "chore: update disposable domains"
+      - if: steps.changed.outputs.changed == 'true'
+        run: npm publish --access public --provenance
+      - if: steps.changed.outputs.changed == 'true'
+        run: git push
