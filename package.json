@@ -44,7 +44,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "emailverifier": "./dist/esm/cli.js"
+    "emailverifier": "dist/esm/cli.js"
   },
   "engines": {
     "node": ">=20"
