@@ -1,6 +1,6 @@
 {
   "name": "@usamaejaz/emailverifier",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Offline email analysis, the emailverifier.dev API client, and a CLI.",
   "keywords": [
     "email",
