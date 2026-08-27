@@ -23,6 +23,11 @@ if (previousList.length > 0) {
   if (changeRatio < 0.9 || changeRatio > 1.5) {
     throw new Error(`Disposable-domain count changed unexpectedly from ${previousList.length} to ${domains.length}.`)
   }
+
+  if (domains.length === previousList.length && domains.every((domain, index) => domain === previousList[index])) {
+    console.log(`Disposable-domain snapshot is already current at ${domains.length} domains.`)
+    process.exit(0)
+  }
 }
 
 const updatedAt = new Date().toISOString()

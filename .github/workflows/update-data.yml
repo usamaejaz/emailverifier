@@ -17,21 +17,20 @@ jobs:
     runs-on: ubuntu-latest
     environment: npm
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24
           registry-url: https://registry.npmjs.org
+          package-manager-cache: false
       - run: npm ci
       - run: npm run update:data
       - id: changed
         run: git diff --quiet || echo "changed=true" >> "$GITHUB_OUTPUT"
       - if: steps.changed.outputs.changed == 'true'
         run: npm version patch --no-git-tag-version
-      - if: steps.changed.outputs.changed == 'true'
-        run: npm run check
       - if: steps.changed.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
@@ -40,5 +39,17 @@ jobs:
           git commit -m "chore: update disposable domains"
       - if: steps.changed.outputs.changed == 'true'
         run: git push
-      - if: steps.changed.outputs.changed == 'true'
-        run: npm publish --access public --provenance
+      - id: release
+        shell: bash
+        run: |
+          package=$(node -p "require('./package.json').name")
+          version=$(node -p "require('./package.json').version")
+          if npm view "$package@$version" version >/dev/null 2>&1; then
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "needed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.release.outputs.needed == 'true'
+        run: npm run check
+      - if: steps.release.outputs.needed == 'true'
+        run: npm publish --access public

@@ -81,7 +81,7 @@ Use `EMAILVERIFIER_BASE_URL` only when testing against a local or self-selected 
 
 The disposable-domain snapshot comes from [disposable/disposable-email-domains](https://github.com/disposable/disposable-email-domains) and includes additional maintained aliases. Its license is recorded in [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
 
-The scheduled GitHub workflow validates upstream data, runs the package checks, publishes a patch release, and commits the updated snapshot when the list changes. npm Trusted Publishing must be connected to this repository before that workflow can publish.
+The scheduled GitHub workflow validates upstream data, commits changed snapshots, and publishes a tested patch release. Configure npm Trusted Publishing for GitHub owner `usamaejaz`, repository `emailverifier`, workflow `update-data.yml`, environment `npm`, and the `npm publish` action.
 
 ## License
 
