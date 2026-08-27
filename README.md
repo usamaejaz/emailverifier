@@ -1,4 +1,4 @@
-# emailverifier
+# Email Verifier SDK
 
 Offline email analysis, a typed client for [emailverifier.dev](https://emailverifier.dev), and a CLI in one package.
 
@@ -7,7 +7,7 @@ The offline functions use bundled data and make no network requests. They can id
 ## Install
 
 ```bash
-npm install @usamaejaz/emailverifier
+npm install @emailverifier/sdk
 ```
 
 Node.js 20 or newer is required. The package has no runtime dependencies and sends no telemetry.
@@ -15,7 +15,7 @@ Node.js 20 or newer is required. The package has no runtime dependencies and sen
 ## Free offline analysis
 
 ```ts
-import { analyzeEmail } from '@usamaejaz/emailverifier/offline'
+import { analyzeEmail } from '@emailverifier/sdk/offline'
 
 const result = analyzeEmail('Support+Trial@Gmail.com')
 
@@ -35,7 +35,7 @@ import {
   isDisposableDomain,
   isFreeEmailProvider,
   isRoleAddress
-} from '@usamaejaz/emailverifier/offline'
+} from '@emailverifier/sdk/offline'
 ```
 
 ## Hosted verification
@@ -43,7 +43,7 @@ import {
 Create a project at [emailverifier.dev](https://emailverifier.dev), then use its API key:
 
 ```ts
-import { EmailVerifier } from '@usamaejaz/emailverifier'
+import { EmailVerifier } from '@emailverifier/sdk'
 
 const client = new EmailVerifier({
   apiKey: process.env.EMAILVERIFIER_API_KEY!
@@ -61,8 +61,8 @@ const usage = await client.getUsage()
 Run local analysis without an account or API key:
 
 ```bash
-npx emailverifier check hello@example.com
-npx emailverifier check hello@example.com --json
+npx @emailverifier/sdk check hello@example.com
+npx @emailverifier/sdk check hello@example.com --json
 ```
 
 Remote commands read the key from the environment. API keys are deliberately not accepted as command-line arguments because command histories and process lists can expose them.
@@ -70,9 +70,9 @@ Remote commands read the key from the environment. API keys are deliberately not
 ```bash
 export EMAILVERIFIER_API_KEY=ev_your_project_key
 
-npx emailverifier verify hello@example.com
-npx emailverifier domain example.com
-npx emailverifier usage
+npx @emailverifier/sdk verify hello@example.com
+npx @emailverifier/sdk domain example.com
+npx @emailverifier/sdk usage
 ```
 
 Use `EMAILVERIFIER_BASE_URL` only when testing against a local or self-selected API origin.
