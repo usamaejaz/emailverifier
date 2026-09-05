@@ -1,6 +1,6 @@
 {
   "name": "@emailverifier/sdk",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Email verifier SDK with free offline checks, the emailverifier.dev API client, and a CLI.",
   "keywords": [
     "email",
