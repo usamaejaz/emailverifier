@@ -36,6 +36,10 @@ describe('offline email analysis', () => {
     assert.equal(isDisposableDomain('inbox.mailinator.com'), true)
   })
 
+  it('includes the refreshed upstream disposable domains', () => {
+    assert.equal(isDisposableDomain('evilbx.com'), true)
+  })
+
   it('keeps provider, role, and typo signals explicit', () => {
     assert.equal(isFreeEmailProvider('GMAIL.COM'), true)
     assert.equal(isRoleAddress('no.reply+launch@example.com'), true)
